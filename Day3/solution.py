@@ -28,11 +28,8 @@ def evaluate(input_data: list, func) -> dict:
     data = deepcopy(input_data)
     for i in range(len(data[0])):
         counts = count_occurence(data)
-        print(counts[i])
         number = func(counts[i])
-        print(number)
         data = filter_binaries(data, i, number)
-        print(data)
         if len(data) == 1:
             return data[0]
 
