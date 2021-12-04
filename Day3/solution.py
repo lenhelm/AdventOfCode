@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 def create_solution_part1(input_data: list) -> dict:
     input = count_occurence(input_data)
     gamma = int(''.join([get_max_key(x) for x in input.values()]), 2)
@@ -10,11 +13,32 @@ def create_solution_part1(input_data: list) -> dict:
     }
 
 
-def create_solution_part2(input_data: list) -> dict:
-    input = count_occurence(input_data)
-    
+def create_solution_part2(input_data: list):
+    oxygen = int(evaluate(input_data, get_max_key), 2)
+    co2_scrubber = int(evaluate(input_data, get_min_key), 2)
+
     return {
+        'oxygen': oxygen,
+        'co2_scrubber': co2_scrubber,
+        'solution': oxygen * co2_scrubber
     }
+
+
+def evaluate(input_data: list, func) -> dict:
+    data = deepcopy(input_data)
+    for i in range(len(data[0])):
+        counts = count_occurence(data)
+        print(counts[i])
+        number = func(counts[i])
+        print(number)
+        data = filter_binaries(data, i, number)
+        print(data)
+        if len(data) == 1:
+            return data[0]
+
+
+def filter_binaries(input: list, position: int, number: str) -> list:
+    return [x for x in input if x[position] == number]
 
 
 def count_occurence(input_data: list) -> int:
@@ -33,7 +57,7 @@ def count_occurence(input_data: list) -> int:
 
 
 def get_max_key(input: dict):
-    if input['1'] > input['0']:
+    if input['1'] >= input['0']:
         return '1'
     else:
         return '0'
