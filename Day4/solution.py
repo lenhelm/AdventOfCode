@@ -2,23 +2,11 @@ import numpy as np
 
 
 class Game:
+
     def __init__(self, data: dict):
         self.grids = {key: Grid(value) for key, value in data.items()}
     
-    def evaluate_part1(self, drawn_numbers: list):
-        for number in drawn_numbers:
-            for grid_id, grid in self.grids.items():
-                grid.cross(number)
-                if grid.eval_win():
-                    return {
-                        'grid_id': grid_id,
-                        'grid_sum': grid.sum(),
-                        'number': number,
-                        'solution': grid.sum() * number
-                    }
-        return 'No winner yet...'
-    
-    def evaluate_part2(self, drawn_numbers: list):
+    def evaluate(self, drawn_numbers: list):
         leaderboard = []
         winner_grids = []
         for number in drawn_numbers:
@@ -32,7 +20,10 @@ class Game:
                         'number': number,
                         'solution': grid.sum() * number
                     })
-        return leaderboard[-1]
+        return {
+            'solution_part1': leaderboard[0],
+            'solution_part2': leaderboard[-1]
+        }
 
 
 class Grid:
