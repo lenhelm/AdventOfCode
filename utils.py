@@ -12,7 +12,7 @@ def read_bingo_data(input_file):
         bingo_batch = 0
         for line in file.readlines():
             if len(line.split(',')) > 5:
-                output['drawn_numbers'] = line.split(',')
+                output['drawn_numbers'] = [int(x) for x in line.split(',')]
             elif len(line) < 5:
                 bingo_batch +=1
                 output[bingo_batch] = []

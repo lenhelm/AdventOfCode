@@ -5,7 +5,7 @@ class Game:
     def __init__(self, data: dict):
         self.grids = {key: Grid(value) for key, value in data.items()}
     
-    def evaluate_drawn_numbers(self, drawn_numbers: list):
+    def evaluate_part1(self, drawn_numbers: list):
         for number in drawn_numbers:
             for grid_id, grid in self.grids.items():
                 grid.cross(number)
@@ -17,6 +17,22 @@ class Game:
                         'solution': grid.sum() * number
                     }
         return 'No winner yet...'
+    
+    def evaluate_part2(self, drawn_numbers: list):
+        leaderboard = []
+        winner_grids = []
+        for number in drawn_numbers:
+            for grid_id, grid in self.grids.items():
+                grid.cross(number)
+                if grid.eval_win() and grid_id not in winner_grids:
+                    winner_grids.append(grid_id)
+                    leaderboard.append({
+                        'grid_id': grid_id,
+                        'grid_sum': grid.sum(),
+                        'number': number,
+                        'solution': grid.sum() * number
+                    })
+        return leaderboard[-1]
 
 
 class Grid:
