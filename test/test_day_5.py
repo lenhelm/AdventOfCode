@@ -1,5 +1,5 @@
 from advent.year_2021.day_5.objects import Point, Row
-from advent.year_2021.day_5.solution import calculate_intersections
+from advent.year_2021.day_5.solution import calculate_intersections, read_data
 
 
 def test_point():
@@ -38,4 +38,14 @@ def test_calculate_intersections():
         ]
     expected_output = 2
     assert expected_output == calculate_intersections(input)
-    
+
+
+def test_read_data():
+    data = read_data("test/day_5_test_input.txt")
+    expected = [
+        Row(Point(1,5), Point(1,10)),
+        Row(Point(5,1), Point(10,1))
+    ]
+    assert len(data) == len(expected)
+    assert data[0].points == expected[0].points
+    assert data[1].points == expected[1].points
