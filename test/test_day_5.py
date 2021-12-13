@@ -1,4 +1,5 @@
-from advent.year_2021.day_5.solution import Point, Row
+from advent.year_2021.day_5.objects import Point, Row
+from advent.year_2021.day_5.solution import calculate_intersections
 
 
 def test_point():
@@ -26,3 +27,10 @@ def test_row_evaluate():
     row2 = Row(Point(1,2), Point(1,4))
 
     assert row1.evaluate(row2) == [Point(1,2), Point(1,3)]
+
+
+def test_calculate_intersections():
+    input = [Row(Point(1,2), Point(1,3)), Row(Point(1,3), Point(1,4)), Row(Point(1,5), Point(1,9))]
+    expected_output = 1
+    assert expected_output == calculate_intersections(input)
+    
