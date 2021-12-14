@@ -7,6 +7,9 @@ class Point:
         self.x = x
         self.y = y
     
+    def __hash__(self):
+        return hash(f"x:{self.x};y:{self.y}")
+    
     def __eq__(self, other):
         if isinstance(other, Point):
             if all([self.x == other.x, self.y == other.y]):

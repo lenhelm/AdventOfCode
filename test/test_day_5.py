@@ -31,12 +31,13 @@ def test_row_evaluate():
 
 def test_calculate_intersections():
     input = [
-        Row(Point(1,2), Point(1,5)), # (1,2), (1,3), (1,4), (1,5)
-        Row(Point(1,5), Point(1,10)), # (1,5), (1,6), (1,7), (1,8), (1,9), (1,10)
-        Row(Point(1,5), Point(5,5)), # (1,5), (2,6), (3,7), (4,8), (5,9)
-        Row(Point(1,6), Point(5,6)) # (1,6), (2,6), (3,6), (4,6), (5,6)
+        Row(Point(1,2), Point(1,5)), # (1,2), (1,3), (1,4), [(1,5)]
+        Row(Point(1,5), Point(1,10)), # [(1,5)], (1,6), (1,7), (1,8), (1,9), (1,10)
+        Row(Point(1,5), Point(5,5)), # [(1,5)], [(2,6)], (3,7), (4,8), (5,9)
+        Row(Point(1,6), Point(5,6)), # (1,6), [(2,6)], (3,6), (4,6), [(5,6)]
+        Row(Point(5,6), Point(10,6)) # [(5,6)], (6,6), (7,6), (8,6), (9,6)
         ]
-    expected_output = 2
+    expected_output = 3
     assert expected_output == calculate_intersections(input)
 
 

@@ -1,3 +1,7 @@
+import itertools
+from tqdm import tqdm
+from multiprocessing import Pool
+
 from advent.year_2021.day_5.objects import Point, Row
 
 
@@ -15,15 +19,10 @@ def read_data(file_path):
 
 
 def calculate_intersections(data: list):
-    found_intersections = []
-    count = 0
-    for line_count in range(len(data)):
-        try:
-            intersections = data[line_count].evaluate(data[line_count + 1])
-            if intersections:
-                for intersection in intersections:
-                    if intersection not in found_intersections:
-                        count += 1
-                        #found_intersections.append(intersection)
-        except IndexError:
-            return count
+    intersections = []
+    for combi in tqdm(itertools.combinations(data, 2)):
+        row1, row2 = combi
+        hits = row1.evaluate(row2)
+        if hits:
+            intersections = intersections + hits
+    return len(set(intersections))
