@@ -4,13 +4,13 @@ import numpy as np
 def read_bingo_data(input_file):
     """Read the bingo data"""
     output = {}
-    with open(input_file, 'r') as file:
+    with open(input_file, "r") as file:
         bingo_batch = 0
         for line in file.readlines():
-            if len(line.split(',')) > 5:
-                output['drawn_numbers'] = [int(x) for x in line.split(',')]
+            if len(line.split(",")) > 5:
+                output["drawn_numbers"] = [int(x) for x in line.split(",")]
             elif len(line) < 5:
-                bingo_batch +=1
+                bingo_batch += 1
                 output[bingo_batch] = []
             else:
                 output[bingo_batch].append(line.split())
@@ -18,13 +18,13 @@ def read_bingo_data(input_file):
 
 
 class Game:
-    """A game with different bingo grids. Evaluate an array of drawn numbers 
+    """A game with different bingo grids. Evaluate an array of drawn numbers
     and receive a dictionary with the first winning grid and the last winning
     grid."""
 
     def __init__(self, data: dict):
         self.grids = {key: Grid(value) for key, value in data.items()}
-    
+
     def evaluate(self, drawn_numbers: list) -> dict:
         leaderboard = []
         winner_grids = []
@@ -33,15 +33,17 @@ class Game:
                 grid.cross(number)
                 if grid.eval_win() and grid_id not in winner_grids:
                     winner_grids.append(grid_id)
-                    leaderboard.append({
-                        'grid_id': grid_id,
-                        'grid_sum': grid.sum(),
-                        'number': number,
-                        'solution': grid.sum() * number
-                    })
+                    leaderboard.append(
+                        {
+                            "grid_id": grid_id,
+                            "grid_sum": grid.sum(),
+                            "number": number,
+                            "solution": grid.sum() * number,
+                        }
+                    )
         return {
-            'first_winning_grid': leaderboard[0],
-            'last_winning_grid': leaderboard[-1]
+            "first_winning_grid": leaderboard[0],
+            "last_winning_grid": leaderboard[-1],
         }
 
 
@@ -50,7 +52,7 @@ class Grid:
 
     def __init__(self, data: list):
         self.grid = np.array(data).astype(int)
-    
+
     def cross(self, number: int):
         self.grid = np.where(self.grid == number, 0, self.grid)
 
@@ -62,7 +64,7 @@ class Grid:
         winning_col = self.eval_win_input(self.grid.transpose())
         if any([winning_row, winning_col]):
             return True
-        return False 
+        return False
 
     @staticmethod
     def eval_win_input(grid: np.array) -> bool:

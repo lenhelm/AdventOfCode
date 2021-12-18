@@ -29,11 +29,7 @@ def test_create_swarm():
 
 
 def test_one_day_passes():
-    input = [
-        Latenfish(0),
-        Latenfish(0),
-        Latenfish(2)
-    ]
+    input = [Latenfish(0), Latenfish(0), Latenfish(2)]
     output = one_day_passes(input)
     assert output[0].days == 6
     assert output[1].days == 6
@@ -42,7 +38,7 @@ def test_one_day_passes():
 
 
 def test_solution_part1():
-    input = [1,2]
+    input = [1, 2]
     output = solution_part1(input, 2)
     expected = 3
     assert output == expected

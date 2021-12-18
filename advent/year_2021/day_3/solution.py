@@ -3,14 +3,10 @@ from copy import deepcopy
 
 def create_solution_part1(input_data: list) -> dict:
     input = count_occurence(input_data)
-    gamma = int(''.join([get_max_key(x) for x in input.values()]), 2)
-    epsilon = int(''.join([get_min_key(x) for x in input.values()]), 2)
+    gamma = int("".join([get_max_key(x) for x in input.values()]), 2)
+    epsilon = int("".join([get_min_key(x) for x in input.values()]), 2)
 
-    return {
-        'gamma': gamma,
-        'epsilon': epsilon,
-        'solution': gamma * epsilon
-    }
+    return {"gamma": gamma, "epsilon": epsilon, "solution": gamma * epsilon}
 
 
 def create_solution_part2(input_data: list):
@@ -18,9 +14,9 @@ def create_solution_part2(input_data: list):
     co2_scrubber = int(evaluate(input_data, get_min_key), 2)
 
     return {
-        'oxygen': oxygen,
-        'co2_scrubber': co2_scrubber,
-        'solution': oxygen * co2_scrubber
+        "oxygen": oxygen,
+        "co2_scrubber": co2_scrubber,
+        "solution": oxygen * co2_scrubber,
     }
 
 
@@ -45,23 +41,23 @@ def count_occurence(input_data: list) -> int:
             try:
                 res[x]
             except KeyError:
-                res[x] = {'1': 0, '0': 0}
-            if bit_string[x] == '1':
-                res[x]['1'] +=1
+                res[x] = {"1": 0, "0": 0}
+            if bit_string[x] == "1":
+                res[x]["1"] += 1
             else:
-                res[x]['0'] += 1
+                res[x]["0"] += 1
     return res
 
 
 def get_max_key(input: dict):
-    if input['1'] >= input['0']:
-        return '1'
+    if input["1"] >= input["0"]:
+        return "1"
     else:
-        return '0'
+        return "0"
 
 
 def get_min_key(input: dict):
-    if input['1'] < input['0']:
-        return '1'
+    if input["1"] < input["0"]:
+        return "1"
     else:
-        return '0'
+        return "0"
