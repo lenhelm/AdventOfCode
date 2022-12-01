@@ -22,6 +22,7 @@ class Bag:
 
 
 class Elve:
+    """A Elve carrying a bag"""
     def __init__(self):
         self.bag: Bag
 
@@ -34,6 +35,7 @@ class Elve:
 
 
 class Expedition:
+    """An Expedition of elves"""
     def __init__(self):
         self.members = []
 
@@ -43,8 +45,12 @@ class Expedition:
     def get_calories_supply(self):
         return sum([elve.bag.get_calories() for elve in self.members])
 
-    def get_max(self):
-        return sorted(self.members, key=lambda x: x.get_calories())[-1]
+    def sort_elves_by_bag_size(self):
+        return sorted(
+            self.members,
+            key=lambda x: x.get_calories(),
+            reverse=True
+            )
 
 
 def populate_expedition(path: str):
@@ -58,6 +64,7 @@ def populate_expedition(path: str):
 
 
 def read_input(path):
+    """Read and transform the input data"""
     with open(path, 'r') as file:
         text = file.read()
     batches = [
@@ -68,9 +75,24 @@ def read_input(path):
 
 def main(path: str = "../data/day_1.txt"):
     """
-    Goal is to identify the elve carrying the largest amount of calories 
+    Goal is to identify the elve carrying the largest amount of calories
     and return the sum
     """
     expedition = populate_expedition(path)
-    strong_elve = expedition.get_max()
-    return strong_elve.get_calories()
+    sorted_elves = expedition.sort_elves_by_bag_size()
+
+    # Part 1
+    single_largest = sorted_elves[0].get_calories()
+    print(f"""
+    The elve with the largest amout of calories is 
+    carrying {single_largest} calories
+    """)
+
+    # Part 2
+    sum_three_largest = sum([elve.get_calories() for elve in sorted_elves[:3]])
+    print(f"""
+    The three elves with the largest amout of calories 
+     carry {sum_three_largest} calories
+    """)
+
+    return single_largest, sum_three_largest

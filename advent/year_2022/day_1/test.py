@@ -2,15 +2,16 @@ from main import Snack, Bag, populate_expedition, read_input, main
 
 
 def test_main():
-    expected = 1900
-    output = main('test_input.txt')
-    assert expected == output
+    single_largest_expected = 1900
+    three_largest_expected = 3900
+    single_largest, three_largest = main('test_input.txt')
+    assert single_largest == single_largest_expected
+    assert three_largest == three_largest_expected
 
 
 def test_populate_expedition():
     expected_output = 3900
     expedition = populate_expedition('test_input.txt')
-
     assert expedition.get_calories_supply() == expected_output
 
 
@@ -24,7 +25,6 @@ def test_bag():
     print(sorted([x.calories for x in snacks])[-1])
     bag = Bag()
     bag.add_snacks(snacks)
-
     assert bag.get_calories() == 1000
 
 
