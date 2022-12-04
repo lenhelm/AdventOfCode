@@ -32,13 +32,15 @@ OUTCOMES = {
 }
 
 
+
+
 def main(path: str):
     """Calculate solution for day 2"""
     with open(path, 'r') as file:
         text = file.read()
     patterns = count_patterns(text)
-    score_1 = sum([x[1] for x in patterns])
-    score_2 = sum([x[2] for x in patterns])
+    score_1 = sum((x[1] for x in patterns))
+    score_2 = sum((x[2] for x in patterns))
     return score_1, score_2
 
 
