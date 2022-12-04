@@ -1020,7 +1020,7 @@ C Z
 C Z
 C Z
 A Y
- Z
+C Z
 A X
 A X
 C X
