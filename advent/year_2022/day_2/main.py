@@ -26,7 +26,6 @@ def main(path: str):
     with open(path, 'r') as file:
         text = file.read()
     patterns = count_patterns(text)
-    print(patterns)
     return sum([x[1] for x in patterns])
 
 
@@ -34,6 +33,5 @@ def count_patterns(text: str):
     output = []
     for key, value in OUTCOMES.items():
         counts = re.findall(key, text)
-        print(key, ':', len(counts))
         output.append((key, len(counts) * value))
     return output
